@@ -33,6 +33,7 @@ public partial class Bat : CharacterBody2D
 
     public void _OnStatsNoHealth()
     {
+        SharedMethods.createEffect(this, "res://Scenes/EnemyDeathEffect.tscn", offsetY: -12);
         this.QueueFree();
     }
 }

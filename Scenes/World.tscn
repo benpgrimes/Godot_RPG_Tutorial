@@ -992,11 +992,14 @@ rotation = -0.0394148
 position = Vector2(176, 16)
 rotation = -0.0394148
 
-[node name="Bat" parent="." instance=ExtResource("7_d78u0")]
+[node name="Enemies" type="Node2D" parent="Ysort"]
+y_sort_enabled = true
+
+[node name="Bat" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
 position = Vector2(176, 128)
 
-[node name="Bat2" parent="." instance=ExtResource("7_d78u0")]
+[node name="Bat2" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
 position = Vector2(80, 112)
 
-[node name="Bat3" parent="." instance=ExtResource("7_d78u0")]
+[node name="Bat3" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
 position = Vector2(168, 32)

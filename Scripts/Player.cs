@@ -78,10 +78,11 @@ public partial class Player : CharacterBody2D
 
         this.move(inputDirection, delta);
 
-        if(Input.IsActionJustPressed("attack"))
+        if (Input.IsActionJustPressed("attack"))
         {
             this.actionState = ActionState.ATTACK;
-        } else if(Input.IsActionJustPressed("roll"))
+        }
+        else if (Input.IsActionJustPressed("roll"))
         {
             this.actionState = ActionState.ROLL;
         }
