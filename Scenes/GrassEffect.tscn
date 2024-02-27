@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://drhpo5x6rqufm"]
+[gd_scene load_steps=9 format=3 uid="uid://m2uxhjvvkgk1"]
 
 [ext_resource type="Script" path="res://Scripts/GrassEffect.cs" id="1_apnoq"]
 [ext_resource type="Texture2D" uid="uid://drxawo32k0he4" path="res://Resources/Effects/GrassEffect.png" id="2_ovhm6"]
