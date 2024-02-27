@@ -14,9 +14,11 @@ public partial class Player : CharacterBody2D
     const int WALL_FRICTION = 100;
     const int ACCELERATION = 1000;
     const int MAX_SPEED = 100;
+    const int ROLL_SPEED = 100;
     const int BOUNCE = 1;
 
     ActionState actionState;
+    Vector2 rollVector;
 
     AnimationPlayer animationPlayer;
     AnimationTree animationTree;
@@ -28,6 +30,7 @@ public partial class Player : CharacterBody2D
         this.Velocity = Vector2.Zero;
         this.actionState = ActionState.MOVE;
         this.MotionMode = MotionModeEnum.Floating;
+        this.rollVector = Vector2.Down;
 
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
@@ -69,6 +72,9 @@ public partial class Player : CharacterBody2D
         if(Input.IsActionJustPressed("attack"))
         {
             this.actionState = ActionState.ATTACK;
+        } else if(Input.IsActionJustPressed("roll"))
+        {
+            this.actionState = ActionState.ROLL;
         }
 
         this.SetAnimation(inputDirection);
@@ -85,7 +91,12 @@ public partial class Player : CharacterBody2D
 
     private void rollState(float delta)
     {
+        this.move(this.rollVector, delta, true);
 
+        if (animationPlayback.GetCurrentNode() == "Idle")
+        {
+            this.actionState = ActionState.MOVE;
+        }
     }
 
 
@@ -105,13 +116,19 @@ public partial class Player : CharacterBody2D
         {
             this.animationPlayback.Travel("Attack");
         }
+        else if(this.actionState == ActionState.ROLL)
+        {
+            this.animationPlayback.Travel("Roll");
+        }
         else if (inputDirection != Vector2.Zero)
         {
             this.animationPlayback.Travel("Run");
 
+            rollVector = inputDirection;
             animationTree.Set("parameters/Idle/blend_position", inputDirection);
             animationTree.Set("parameters/Run/blend_position", inputDirection);
             animationTree.Set("parameters/Attack/blend_position", inputDirection);
+            animationTree.Set("parameters/Roll/blend_position", inputDirection);
         }
         else
         {
@@ -119,9 +136,17 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    private void move(Vector2 inputDirection, float delta)
+    private void move(Vector2 inputDirection, float delta, bool isRoll = false)
     {
-        calculateVelocity(inputDirection, delta);
+        if(isRoll)
+        {
+            Velocity = inputDirection * ROLL_SPEED;
+        }
+        else
+        {
+            calculateVelocity(inputDirection, delta);
+        }
+        
 
         if (MoveAndSlide())
         {
