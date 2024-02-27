@@ -10,12 +10,18 @@ enum ActionState
 
 public partial class Player : CharacterBody2D
 {
-    const int FRICTION = 800;
-    const int WALL_FRICTION = 100;
-    const int ACCELERATION = 1000;
-    const int MAX_SPEED = 100;
-    const int ROLL_SPEED = 100;
-    const int BOUNCE = 1;
+    [Export]
+    private int FRICTION = 800;
+    [Export]
+    private int WALL_FRICTION = 100;
+    [Export]
+    private int ACCELERATION = 1000;
+    [Export]
+    private int MAX_SPEED = 100;
+    [Export]
+    private int ROLL_SPEED = 100;
+    [Export]
+    private int BOUNCE = 1;
 
     ActionState actionState;
     Vector2 rollVector;
