@@ -23,6 +23,7 @@ public partial class Player : CharacterBody2D
     AnimationPlayer animationPlayer;
     AnimationTree animationTree;
     AnimationNodeStateMachinePlayback animationPlayback;
+    SwordHitbox swordHitbox;
 
 
     public override void _Ready()
@@ -34,8 +35,10 @@ public partial class Player : CharacterBody2D
 
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
+        this.swordHitbox = this.GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         this.animationPlayback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
         this.animationTree.Active = true;
+        this.swordHitbox.knockbackVector = rollVector;
 
     }
 
@@ -129,6 +132,8 @@ public partial class Player : CharacterBody2D
             animationTree.Set("parameters/Run/blend_position", inputDirection);
             animationTree.Set("parameters/Attack/blend_position", inputDirection);
             animationTree.Set("parameters/Roll/blend_position", inputDirection);
+
+            this.setKnockback(inputDirection);
         }
         else
         {
@@ -182,6 +187,33 @@ public partial class Player : CharacterBody2D
 
         this.Velocity = this.Velocity.MoveToward(Vector2.Zero, velocityDifference / 4);
         this.Velocity = this.Velocity.MoveToward(oldVelocity.Reflect(adjustment.Normalized()), BOUNCE);
+    }
 
+    private void setKnockback(Vector2 inputDirection)
+    {
+        float distanceFromRight = inputDirection.DistanceTo(Vector2.Right);
+        float distanceFromLeft = inputDirection.DistanceTo(Vector2.Left);
+        float distanceFromUp = inputDirection.DistanceTo(Vector2.Up * 1.1f);
+        float distanceFromDown = inputDirection.DistanceTo(Vector2.Down * 1.1f);
+
+        if (distanceFromRight < distanceFromLeft
+            && distanceFromRight < distanceFromUp
+            && distanceFromRight < distanceFromDown)
+        {
+            this.swordHitbox.knockbackVector = Vector2.Right;
+        }
+        else if (distanceFromLeft < distanceFromUp
+            && distanceFromLeft < distanceFromDown)
+        {
+            this.swordHitbox.knockbackVector = Vector2.Left;
+        }
+        else if (distanceFromUp < distanceFromDown)
+        {
+            this.swordHitbox.knockbackVector = Vector2.Up;
+        }
+        else
+        {
+            this.swordHitbox.knockbackVector = Vector2.Down;
+        }
     }
 }
