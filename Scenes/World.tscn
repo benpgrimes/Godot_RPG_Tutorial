@@ -897,6 +897,8 @@ y_sort_enabled = true
 
 [node name="Player" parent="Ysort" instance=ExtResource("4_b5jml")]
 position = Vector2(136, 56)
+MAX_SPEED = 150
+ROLL_SPEED = 160
 
 [node name="Bushes" type="Node2D" parent="Ysort"]
 y_sort_enabled = true

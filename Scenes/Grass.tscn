@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Grass.cs" id="1_ereeo"]
 [ext_resource type="Texture2D" uid="uid://l0xpxo0ievb4" path="res://Resources/World/Grass.png" id="1_n6ct5"]
-[ext_resource type="PackedScene" uid="uid://dvdcry54u0dte" path="res://Scenes/hurtbox.tscn" id="3_hajgj"]
+[ext_resource type="PackedScene" uid="uid://dvdcry54u0dte" path="res://Scenes/Hurtbox.tscn" id="3_hajgj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ikhm"]
 size = Vector2(14, 14)

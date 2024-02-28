@@ -1,15 +1,17 @@
 using Godot;
 using System;
 
-enum ActionState
-{
-    MOVE,
-    ROLL,
-    ATTACK
-}
+
 
 public partial class Player : CharacterBody2D
 {
+    enum ActionState
+    {
+        MOVE,
+        ROLL,
+        ATTACK
+    }
+
     [Export]
     private int FRICTION = 800;
     [Export]

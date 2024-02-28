@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://c16aqotfmuolr"]
+[gd_scene load_steps=16 format=3 uid="uid://c16aqotfmuolr"]
 
 [ext_resource type="Script" path="res://Scripts/Bat.cs" id="1_4e54h"]
 [ext_resource type="Texture2D" uid="uid://brgqp8whgf1uy" path="res://Resources/Enemies/Bat.png" id="1_d8nuo"]
 [ext_resource type="Texture2D" uid="uid://nfmt4pdhvtpq" path="res://Resources/Shadows/SmallShadow.png" id="2_0vj26"]
-[ext_resource type="PackedScene" uid="uid://dvdcry54u0dte" path="res://Scenes/hurtbox.tscn" id="3_jxgi8"]
+[ext_resource type="PackedScene" uid="uid://dvdcry54u0dte" path="res://Scenes/Hurtbox.tscn" id="3_jxgi8"]
 [ext_resource type="PackedScene" uid="uid://cpu5adcj14an4" path="res://Scenes/Stats.tscn" id="5_361fu"]
+[ext_resource type="PackedScene" uid="uid://c3xvjhc2cx6xx" path="res://Scenes/PlayerDetectionZone.tscn" id="6_fnvw5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k606g"]
 atlas = ExtResource("1_d8nuo")
@@ -56,11 +57,16 @@ radius = 4.12311
 radius = 7.0
 height = 18.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_nf747"]
+radius = 87.0919
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 16
+collision_mask = 17
+motion_mode = 1
 script = ExtResource("1_4e54h")
 
-[node name="Bat" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_bm0ob")
 autoplay = "default"
@@ -83,7 +89,15 @@ shape = SubResource("CapsuleShape2D_nle7b")
 [node name="Stats" parent="." instance=ExtResource("5_361fu")]
 MAX_HEALTH = 2
 
+[node name="PlayerDetectionZone" parent="." instance=ExtResource("6_fnvw5")]
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+modulate = Color(1, 1, 1, 0.266667)
+shape = SubResource("CircleShape2D_nf747")
+metadata/_edit_lock_ = true
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_OnHurtboxAreaEntered"]
 [connection signal="NoHealth" from="Stats" to="." method="_OnStatsNoHealth"]
 
 [editable path="Hurtbox"]
+[editable path="PlayerDetectionZone"]
