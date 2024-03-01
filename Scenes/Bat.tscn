@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c16aqotfmuolr"]
+[gd_scene load_steps=18 format=3 uid="uid://c16aqotfmuolr"]
 
 [ext_resource type="Script" path="res://Scripts/Bat.cs" id="1_4e54h"]
 [ext_resource type="Texture2D" uid="uid://brgqp8whgf1uy" path="res://Resources/Enemies/Bat.png" id="1_d8nuo"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dvdcry54u0dte" path="res://Scenes/Hurtbox.tscn" id="3_jxgi8"]
 [ext_resource type="PackedScene" uid="uid://cpu5adcj14an4" path="res://Scenes/Stats.tscn" id="5_361fu"]
 [ext_resource type="PackedScene" uid="uid://c3xvjhc2cx6xx" path="res://Scenes/PlayerDetectionZone.tscn" id="6_fnvw5"]
+[ext_resource type="PackedScene" uid="uid://c7f76sxk2or8r" path="res://Scenes/Hitbox.tscn" id="7_dgxqj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k606g"]
 atlas = ExtResource("1_d8nuo")
@@ -60,6 +61,9 @@ height = 18.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nf747"]
 radius = 87.0919
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uhtnr"]
+radius = 4.0
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 16
 collision_mask = 17
@@ -80,7 +84,7 @@ shape = SubResource("CircleShape2D_nnbmu")
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_jxgi8")]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 64
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -13)
@@ -96,8 +100,17 @@ modulate = Color(1, 1, 1, 0.266667)
 shape = SubResource("CircleShape2D_nf747")
 metadata/_edit_lock_ = true
 
+[node name="Hitbox" parent="." instance=ExtResource("7_dgxqj")]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_uhtnr")
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_OnHurtboxAreaEntered"]
 [connection signal="NoHealth" from="Stats" to="." method="_OnStatsNoHealth"]
 
 [editable path="Hurtbox"]
 [editable path="PlayerDetectionZone"]
+[editable path="Hitbox"]

@@ -9,4 +9,7 @@ script = ExtResource("1_lq02y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="_OnAreaEntered"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_OnInvincibiltyTimeout"]

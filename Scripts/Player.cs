@@ -32,7 +32,8 @@ public partial class Player : CharacterBody2D
     AnimationTree animationTree;
     AnimationNodeStateMachinePlayback animationPlayback;
     SwordHitbox swordHitbox;
-
+    Stats stats;
+    Hurtbox hurtbox;
 
     public override void _Ready()
     {
@@ -45,9 +46,13 @@ public partial class Player : CharacterBody2D
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
         this.swordHitbox = this.GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         this.animationPlayback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
+        this.hurtbox = this.GetNode<Hurtbox>("Hurtbox");
+        this.stats = GetNode<Stats>("/root/PlayerStats");
+
         this.animationTree.Active = true;
         this.swordHitbox.knockbackVector = rollVector;
 
+        this.stats.Connect("NoHealth", Callable.From(() => this.QueueFree()));
     }
 
     public override void _PhysicsProcess(double delta)
@@ -73,6 +78,12 @@ public partial class Player : CharacterBody2D
         }
     }
 
+    public void _OnHurtboxAreaEntered(Area2D area)
+    {
+        hurtbox.startInvincibility(0.5);
+        stats.setHealth(stats.getHealth() - 1);
+    }
+
     private void moveState(float delta)
     {
 
@@ -86,6 +97,7 @@ public partial class Player : CharacterBody2D
         }
         else if (Input.IsActionJustPressed("roll"))
         {
+            hurtbox.startInvincibility(0.5);
             this.actionState = ActionState.ROLL;
         }
 
