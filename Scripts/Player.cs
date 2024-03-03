@@ -14,15 +14,11 @@ public partial class Player : CharacterBody2D
     [Export]
     private int FRICTION = 800;
     [Export]
-    private int WALL_FRICTION = 100;
-    [Export]
     private int ACCELERATION = 1000;
     [Export]
     private int MAX_SPEED = 100;
     [Export]
     private int ROLL_SPEED = 100;
-    [Export]
-    private int BOUNCE = 1;
 
     bool wasHitThisFrame;
     ActionState actionState;
@@ -178,42 +174,33 @@ public partial class Player : CharacterBody2D
         {
             calculateVelocity(inputDirection, delta);
         }
-        
 
-        if (MoveAndSlide())
-        {
-            BounceOffWall();
-            ApplyWallFriction(delta);
-        }
-
+        moveAndUpdateVelocity();
     }
 
     private void calculateVelocity(Vector2 inputDirection, float delta)
     {
         this.Velocity += inputDirection * ACCELERATION * delta;
-        this.Velocity = this.Velocity.LimitLength(MAX_SPEED);
         this.Velocity = this.Velocity.MoveToward(Vector2.Zero, FRICTION * delta);
+        this.Velocity = this.Velocity.LimitLength(MAX_SPEED);
     }
 
-    private void ApplyWallFriction(float delta)
+    private void moveAndUpdateVelocity()
     {
-        this.Velocity = this.Velocity.MoveToward(Vector2.Zero, WALL_FRICTION / 500);
-    }
-
-    private void BounceOffWall()
-    {
-        Vector2 realVelocity = GetRealVelocity();
-        float velocityDifference = Math.Abs(Velocity.X - realVelocity.X) + Math.Abs(Velocity.Y - realVelocity.Y);
         Vector2 oldVelocity = this.Velocity;
-        this.Velocity = realVelocity;
 
-        KinematicCollision2D lastCollision = this.GetLastSlideCollision();
-        float lastCollisionAngleY = lastCollision.GetAngle();
+        if (MoveAndSlide())
+        {
+            Vector2 realVelocity = GetRealVelocity().LimitLength(MAX_SPEED);
 
-        Vector2 adjustment = Vector2.FromAngle(lastCollisionAngleY);
+            bool useRealVelocityX = Math.Abs(oldVelocity.X) > Math.Abs(realVelocity.X);
+            bool useRealVelocityY = Math.Abs(oldVelocity.Y) > Math.Abs(realVelocity.Y);
 
-        this.Velocity = this.Velocity.MoveToward(Vector2.Zero, velocityDifference / 4);
-        this.Velocity = this.Velocity.MoveToward(oldVelocity.Reflect(adjustment.Normalized()), BOUNCE);
+            float newVelocityX = useRealVelocityX ? realVelocity.X : oldVelocity.X;
+            float newVelocityY = useRealVelocityY ? realVelocity.Y : oldVelocity.Y;
+
+            this.Velocity = new Vector2(newVelocityX, newVelocityY);
+        }
     }
 
     private void setKnockback(Vector2 inputDirection)
