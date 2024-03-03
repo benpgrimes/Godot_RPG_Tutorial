@@ -19,10 +19,13 @@ public partial class Bat : CharacterBody2D
     private int KNOCKBACK = 150;
     [Export]
     private int FRICTION = 200;
+    [Export]
+    private int PUSH_STRENGTH = 200;
 
     Stats stats;
     PlayerDetectionZone detectionZone;
     AnimatedSprite2D animatedSprite;
+    SoftCollision softCollision;
     ActionState actionState = ActionState.IDLE;
 
     public override void _Ready()
@@ -30,14 +33,18 @@ public partial class Bat : CharacterBody2D
         stats = this.GetNode<Stats>("Stats");
         detectionZone = this.GetNode<PlayerDetectionZone>("PlayerDetectionZone");
         animatedSprite = this.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        softCollision = this.GetNode<SoftCollision>("SoftCollision");
     }
 
     public override void _PhysicsProcess(double delta)
     {
         float fdelta = (float)delta;
 
-        this.MoveAndSlide();
         this.ApplyFriction(fdelta);
+        this.MoveAndSlide();
+
+        Vector2 pushVector = softCollision.GetPushVector();
+        Velocity += pushVector * fdelta * PUSH_STRENGTH;
 
         switch(actionState)
         {
