@@ -875,150 +875,163 @@ sources/0 = SubResource("TileSetAtlasSource_cy3ut")
 [node name="World" type="Node2D"]
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_repeat = 2
-texture = ExtResource("1_vsa7i")
-centered = false
-region_enabled = true
-region_rect = Rect2(-8, -8, 320, 184)
-metadata/_edit_lock_ = true
+[node name="UI" type="Node2D" parent="."]
 
-[node name="Dirt Path" type="TileMap" parent="."]
-y_sort_enabled = true
-tile_set = SubResource("TileSet_4y64d")
-format = 2
-layer_0/tile_data = PackedInt32Array(196616, 131075, 1, 458759, 3, 1, 458760, 131075, 1, 393224, 131075, 1, 393223, 3, 1, 327687, 3, 1, 327688, 131075, 1, 262152, 131075, 1, 262151, 3, 1, 196615, 3, 1, 262160, 65539, 0, 327696, 65539, 2, 327695, 3, 2, 262159, 3, 0, 262161, 131075, 0, 327697, 131075, 2, 131083, 3, 2, 65547, 3, 0, 65548, 131075, 0, 131084, 131075, 2, 524295, 3, 1, 589831, 3, 1, 655367, 3, 1, 655368, 131075, 1, 589832, 131075, 1, 524296, 131075, 1, 131079, 393219, 1, 65543, 65539, 0, 65544, 131075, 0, 131080, 131075, 1, 65542, 65539, 0, 65541, 65539, 0, 65540, 65539, 0, 65539, 65539, 0, 65538, 65539, 0, 65537, 65539, 0, 65536, 65539, 0, 131078, 65539, 2, 131077, 65539, 2, 131076, 65539, 2, 131075, 65539, 2, 131074, 65539, 2, 131073, 65539, 2, 131072, 65539, 2, 131071, 3, 0, 196607, 3, 2, 720903, 3, 2, 720904, 131075, 2, 524291, 131075, 0, 524290, 65539, 0, 524289, 3, 0, 589825, 3, 1, 655361, 3, 2, 655362, 65539, 2, 655363, 131075, 2, 589827, 131075, 1, 589826, 65539, 1)
-
-[node name="Rock Cliff" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_kbut0")
-format = 2
-layer_0/tile_data = PackedInt32Array(262151, 0, 2, 262152, 65536, 2, 196615, 0, 0, 196616, 65536, 0, 196617, 65536, 0, 8, 65536, 2, 7, 0, 2, 131078, 196608, 3, 327679, 196608, 1, 262143, 196608, 1, 196607, 196608, 1, 131071, 196608, 1, 65535, 196608, 1, -1, 262144, 0, -65536, 65536, 3, -65535, 65536, 3, -65534, 65536, 3, -65533, 65536, 3, -65532, 65536, 3, -65531, 65536, 3, -65530, 65536, 3, -65529, 393216, 0, -65528, 65536, 0, -65527, 65536, 0, -65526, 131072, 0, 131082, 196608, 1, 196618, 458752, 2, 262154, 458752, 1, 327690, 196608, 1, 393226, 458752, 3, 393225, 65536, 3, 393224, 65536, 3, 393223, 65536, 3, 393222, 65536, 3, 393221, 65536, 3, 393220, 65536, 3, 393219, 65536, 3, 393218, 65536, 3, 393217, 65536, 3, 393216, 65536, 3, 458751, 262144, 3, 10, 131072, 1, 65546, 458752, 1, 65545, 0, 2, 393215, 196608, 1, 9, 393216, 1, 262153, 65536, 2)
-
-[node name="Ysort" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="Player" parent="Ysort" instance=ExtResource("4_b5jml")]
+[node name="Camera2D" type="Camera2D" parent="UI"]
 position = Vector2(136, 56)
-MAX_SPEED = 150
-ROLL_SPEED = 160
+process_callback = 0
+position_smoothing_enabled = true
 
-[node name="Bushes" type="Node2D" parent="Ysort"]
-y_sort_enabled = true
-metadata/_edit_lock_ = true
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
 
-[node name="Bush" parent="Ysort/Bushes" instance=ExtResource("5_x552b")]
-position = Vector2(56, 88)
-
-[node name="Bush2" parent="Ysort/Bushes" instance=ExtResource("5_x552b")]
-position = Vector2(192, 152)
-
-[node name="Bush3" parent="Ysort/Bushes" instance=ExtResource("5_x552b")]
-position = Vector2(160, 80)
-
-[node name="Bush4" parent="Ysort/Bushes" instance=ExtResource("5_x552b")]
-position = Vector2(264, 48)
-
-[node name="Grass" type="Node2D" parent="Ysort"]
-y_sort_enabled = true
-metadata/_edit_lock_ = true
-
-[node name="Grass" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(16, 128)
-
-[node name="Grass2" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(16, 144)
-
-[node name="Grass3" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(32, 128)
-rotation = -0.0394148
-
-[node name="Grass4" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(48, 128)
-rotation = -0.0394148
-
-[node name="Grass5" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(48, 144)
-rotation = -0.0394148
-
-[node name="Grass6" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(32, 144)
-rotation = -0.0394148
-
-[node name="Grass7" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(16, 160)
-rotation = -0.0394148
-
-[node name="Grass12" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(32, 160)
-rotation = -0.0394148
-
-[node name="Grass13" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(48, 160)
-rotation = -0.0394148
-
-[node name="Grass14" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(240, 64)
-rotation = -0.0394148
-
-[node name="Grass15" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(256, 64)
-rotation = -0.0394148
-
-[node name="Grass16" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(272, 64)
-rotation = -0.0394148
-
-[node name="Grass17" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(272, 80)
-rotation = -0.0394148
-
-[node name="Grass18" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(256, 80)
-rotation = -0.0394148
-
-[node name="Grass19" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(240, 80)
-rotation = -0.0394148
-
-[node name="Grass8" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(176, 32)
-rotation = -0.0394148
-
-[node name="Grass9" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(192, 32)
-rotation = -0.0394148
-
-[node name="Grass10" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(192, 16)
-rotation = -0.0394148
-
-[node name="Grass11" parent="Ysort/Grass" instance=ExtResource("6_okcdt")]
-position = Vector2(176, 16)
-rotation = -0.0394148
-
-[node name="trees" type="Node2D" parent="Ysort"]
-y_sort_enabled = true
-
-[node name="Tree" parent="Ysort/trees" instance=ExtResource("7_2rflc")]
-position = Vector2(32, 64)
-
-[node name="Tree2" parent="Ysort/trees" instance=ExtResource("7_2rflc")]
-position = Vector2(88, 160)
-
-[node name="Enemies" type="Node2D" parent="Ysort"]
-y_sort_enabled = true
-
-[node name="Bat" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
-position = Vector2(192, 128)
-
-[node name="Bat2" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
-position = Vector2(136, 152)
-
-[node name="Bat3" parent="Ysort/Enemies" instance=ExtResource("7_d78u0")]
-position = Vector2(168, 32)
-
-[node name="Health UI" parent="." instance=ExtResource("8_igujv")]
+[node name="Health UI" parent="UI/CanvasLayer" instance=ExtResource("8_igujv")]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 44.0
 offset_bottom = 44.0
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="Environment"]
+texture_repeat = 2
+position = Vector2(0, 1)
+texture = ExtResource("1_vsa7i")
+region_enabled = true
+region_rect = Rect2(-216, -160, 1896, 920)
+metadata/_edit_lock_ = true
+
+[node name="Dirt Path" type="TileMap" parent="Environment"]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_4y64d")
+format = 2
+layer_0/tile_data = PackedInt32Array(196616, 131075, 1, 458759, 3, 1, 458760, 131075, 1, 393224, 131075, 1, 393223, 3, 1, 327687, 3, 1, 327688, 131075, 1, 262152, 131075, 1, 262151, 3, 1, 196615, 3, 1, 262160, 65539, 0, 327696, 65539, 2, 327695, 3, 2, 262159, 3, 0, 262161, 131075, 0, 327697, 131075, 2, 131083, 3, 2, 65547, 3, 0, 65548, 131075, 0, 131084, 131075, 2, 524295, 3, 1, 589831, 3, 1, 655367, 3, 1, 655368, 131075, 1, 589832, 131075, 1, 524296, 131075, 1, 131079, 393219, 1, 65543, 65539, 0, 65544, 131075, 0, 131080, 131075, 1, 65542, 65539, 0, 65541, 65539, 0, 65540, 65539, 0, 65539, 65539, 0, 65538, 65539, 0, 65537, 65539, 0, 65536, 65539, 0, 131078, 65539, 2, 131077, 65539, 2, 131076, 65539, 2, 131075, 65539, 2, 131074, 65539, 2, 131073, 65539, 2, 131072, 65539, 2, 131071, 3, 0, 196607, 3, 2, 720903, 3, 1, 720904, 327683, 2, 524291, 131075, 0, 524290, 65539, 0, 524289, 3, 0, 589825, 3, 1, 655361, 3, 2, 655362, 65539, 2, 655363, 131075, 2, 589827, 131075, 1, 589826, 65539, 1, 720905, 65539, 0, 720907, 131075, 0, 720906, 65539, 0, 786439, 3, 2, 786440, 65539, 2, 786441, 65539, 2, 786442, 393219, 1, 786445, 65539, 0, 786444, 65539, 0, 786443, 327683, 2, 851979, 65539, 2, 851980, 65539, 2, 851981, 65539, 2, 851978, 3, 2, 786446, 65539, 0, 851982, 65539, 2, 851983, 65539, 2, 786447, 65539, 0, 786448, 131075, 0, 851984, 589827, 0, 851985, 131075, 0, 917522, 131075, 0, 917521, 589827, 0, 983057, 3, 2, 983058, 589827, 0, 983059, 65539, 0, 983060, 65539, 0, 1048596, 65539, 2, 1048595, 65539, 2, 1048594, 3, 2, 1048598, 65539, 2, 1048597, 65539, 2, 983061, 65539, 0, 983062, 65539, 0, 983063, 65539, 0, 1048599, 65539, 2, 1048600, 65539, 2, 983064, 65539, 0, 983065, 65539, 0, 983066, 589827, 1, 1048601, 65539, 2, 1048602, 131075, 2, 917530, 3, 0, 851995, 3, 0, 917531, 589827, 1, 851996, 589827, 1, 786460, 3, 0, 786461, 589827, 1, 720925, 3, 1, 655389, 3, 1, 655390, 131075, 1, 720926, 131075, 1, 917532, 131075, 2, 851997, 131075, 2, 786462, 131075, 2, 589854, 131075, 1, 589853, 3, 1, 524317, 3, 1, 458781, 3, 1, 458782, 131075, 1, 524318, 131075, 1, 983067, 131075, 2, 917520, 3, 2, 393245, 3, 1, 393246, 131075, 1, 327710, 131075, 1, 327709, 3, 1, 262173, 3, 1, 196637, 3, 1, 196638, 131075, 1, 262174, 131075, 1, 131102, 131075, 0, 131101, 589827, 0, 131100, 3, 2, 65564, 589827, 0, 65565, 131075, 0, 65563, 3, 2, 27, 589827, 0, 28, 131075, 0, -65509, 131075, 0, -65510, 589827, 0, 26, 3, 2, -131046, 131075, 0, -131047, 3, 0, -65511, 3, 2)
+
+[node name="Rock Cliff" type="TileMap" parent="Environment"]
+tile_set = SubResource("TileSet_kbut0")
+format = 2
+layer_0/tile_data = PackedInt32Array(262151, 0, 2, 262152, 65536, 2, 196615, 0, 0, 196616, 65536, 0, 196617, 65536, 0, 8, 65536, 2, 7, 0, 2, 131078, 196608, 3, -65529, 0, 0, -65528, 65536, 0, -65527, 65536, 0, -65526, 131072, 0, 131082, 0, 1, 196618, 589824, 1, 262154, 458752, 1, 327690, 196608, 2, 10, 327680, 2, 65546, 393216, 1, 65545, 0, 2, 9, 393216, 1, 262153, 65536, 2, 131083, 327680, 1, 65547, 327680, 2, 11, 131072, 0, 196619, 131072, 2, 131084, 131072, 2, 65548, 131072, 0, -131068, 131072, 3, -131069, 327680, 3, -131070, 65536, 2, -131071, 65536, 2, -131072, 65536, 2, -65537, 0, 2, -131073, 393216, 1, -196608, 65536, 1, -196607, 65536, 1, -196606, 65536, 1, -196605, 131072, 1, -131074, 0, 2, -196610, 393216, 0, -196611, 0, 3, -196609, 65536, 0, -262144, 65536, 0, -262143, 65536, 0, -262142, 65536, 0, -262141, 131072, 0, 262141, 131072, 2, 262140, 327680, 1, 327676, 131072, 1, 327675, 0, 1, 393211, 0, 1, 458747, 0, 2, 458748, 524288, 1, 524284, 196608, 2, 393212, 327680, 2, 393213, 65536, 0, 458749, 65536, 2, 458750, 131072, 2, 393214, 131072, 0, 196605, 327680, 0, 196604, 65536, 0, 196603, 0, 0, 262139, 0, 1, 196606, 131072, 3)
+
+[node name="Objects" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Objects" instance=ExtResource("4_b5jml")]
+position = Vector2(136, 56)
+ROLL_SPEED = 120
+
+[node name="CameraAnchor" type="RemoteTransform2D" parent="Objects/Player"]
+remote_path = NodePath("../../../UI/Camera2D")
+
+[node name="Bushes" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Bush" parent="Objects/Bushes" instance=ExtResource("5_x552b")]
+position = Vector2(56, 88)
+
+[node name="Bush2" parent="Objects/Bushes" instance=ExtResource("5_x552b")]
+position = Vector2(192, 152)
+
+[node name="Bush3" parent="Objects/Bushes" instance=ExtResource("5_x552b")]
+position = Vector2(160, 80)
+
+[node name="Bush4" parent="Objects/Bushes" instance=ExtResource("5_x552b")]
+position = Vector2(264, 48)
+
+[node name="Grass" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Grass" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(16, 128)
+
+[node name="Grass2" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(16, 144)
+
+[node name="Grass3" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(32, 128)
+rotation = -0.0394148
+
+[node name="Grass4" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(48, 128)
+rotation = -0.0394148
+
+[node name="Grass5" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(48, 144)
+rotation = -0.0394148
+
+[node name="Grass6" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(32, 144)
+rotation = -0.0394148
+
+[node name="Grass7" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(16, 160)
+rotation = -0.0394148
+
+[node name="Grass12" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(32, 160)
+rotation = -0.0394148
+
+[node name="Grass13" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(48, 160)
+rotation = -0.0394148
+
+[node name="Grass14" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(240, 64)
+rotation = -0.0394148
+
+[node name="Grass15" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(256, 64)
+rotation = -0.0394148
+
+[node name="Grass16" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(272, 64)
+rotation = -0.0394148
+
+[node name="Grass17" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(272, 80)
+rotation = -0.0394148
+
+[node name="Grass18" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(256, 80)
+rotation = -0.0394148
+
+[node name="Grass19" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(240, 80)
+rotation = -0.0394148
+
+[node name="Grass8" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(176, 32)
+rotation = -0.0394148
+
+[node name="Grass9" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(192, 32)
+rotation = -0.0394148
+
+[node name="Grass10" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(192, 16)
+rotation = -0.0394148
+
+[node name="Grass11" parent="Objects/Grass" instance=ExtResource("6_okcdt")]
+position = Vector2(176, 16)
+rotation = -0.0394148
+
+[node name="Trees" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+
+[node name="Tree" parent="Objects/Trees" instance=ExtResource("7_2rflc")]
+position = Vector2(32, 64)
+
+[node name="Tree2" parent="Objects/Trees" instance=ExtResource("7_2rflc")]
+position = Vector2(88, 160)
+
+[node name="Enemies" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+
+[node name="Bat" parent="Objects/Enemies" instance=ExtResource("7_d78u0")]
+position = Vector2(192, 128)
+
+[node name="Bat2" parent="Objects/Enemies" instance=ExtResource("7_d78u0")]
+position = Vector2(136, 152)
+
+[node name="Bat3" parent="Objects/Enemies" instance=ExtResource("7_d78u0")]
+position = Vector2(168, 32)
