@@ -10,10 +10,10 @@ public partial class PlayerDetectionZone : Area2D
         return player != null;
     }
 
-    public Vector2? getPlayerCoordinates()
+    public Vector2? getPlayerPosition()
     {
         if(player != null) {
-            return player.Position;
+            return player.GlobalPosition;
         }
         else
         {

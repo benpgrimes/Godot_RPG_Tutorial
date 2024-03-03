@@ -14,11 +14,11 @@ public partial class Player : CharacterBody2D
     [Export]
     private int FRICTION = 800;
     [Export]
-    private int ACCELERATION = 1000;
+    private int ACCELERATION = 1200;
     [Export]
     private int MAX_SPEED = 100;
     [Export]
-    private int ROLL_SPEED = 100;
+    private int ROLL_SPEED = 150;
 
     bool wasHitThisFrame;
     ActionState actionState;

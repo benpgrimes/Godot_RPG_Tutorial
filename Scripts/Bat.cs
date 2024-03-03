@@ -1,6 +1,6 @@
 using Godot;
-using System;
-
+using Godot.Collections;
+using System.Runtime.CompilerServices;
 
 public partial class Bat : CharacterBody2D
 {
@@ -12,20 +12,22 @@ public partial class Bat : CharacterBody2D
     }
 
     [Export]
-    private int MAX_SPEED = 50;
+    private int MAX_SPEED = 150;
     [Export]
-    private int ACCELERATION = 300;
+    private int ACCELERATION = 90;
     [Export]
-    private int KNOCKBACK = 150;
+    private int KNOCKBACK = 100;
     [Export]
-    private int FRICTION = 200;
+    private int FRICTION = 30;
     [Export]
-    private int PUSH_STRENGTH = 200;
+    private int PUSH_STRENGTH = 50;
 
     Stats stats;
     PlayerDetectionZone detectionZone;
     AnimatedSprite2D animatedSprite;
     SoftCollision softCollision;
+    WanderController wanderController;
+
     ActionState actionState = ActionState.IDLE;
 
     public override void _Ready()
@@ -34,6 +36,9 @@ public partial class Bat : CharacterBody2D
         detectionZone = this.GetNode<PlayerDetectionZone>("PlayerDetectionZone");
         animatedSprite = this.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         softCollision = this.GetNode<SoftCollision>("SoftCollision");
+        wanderController = this.GetNode<WanderController>("WanderController");
+
+        this.RandomizeState();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -52,6 +57,7 @@ public partial class Bat : CharacterBody2D
                 this.IdleState(fdelta);
                 break;
             case ActionState.WANDER:
+                this.WanderState(fdelta);
                 break;
             case ActionState.CHASE:
                 this.ChaseState(fdelta);
@@ -77,13 +83,7 @@ public partial class Bat : CharacterBody2D
     {
         if(detectionZone.CanSeePlayer())
         {
-            Vector2 direction =  detectionZone.getPlayerCoordinates().Value - this.Position;
-            direction = direction.Normalized();
-
-            this.Velocity = this.Velocity.MoveToward(direction * MAX_SPEED, ACCELERATION * delta);
-
-            animatedSprite.FlipH = this.Velocity.X < 0;
-
+            AccelerateToward(detectionZone.getPlayerPosition().Value, delta);
         }
         else
         {
@@ -94,11 +94,27 @@ public partial class Bat : CharacterBody2D
     private void IdleState(float delta)
     {
         this.SeekPlayer();
+
+        if(this.wanderController.GetTimeLeft() == 0)
+        {
+            this.RandomizeState();
+
+            this.wanderController.SetTimer(GD.RandRange(1, 3));
+        }
     }
 
-    private void WanderState()
+    private void WanderState(float delta)
     {
+        this.SeekPlayer();
 
+        AccelerateToward(wanderController.GetTargetPosition(), delta);
+
+        if (this.wanderController.GetTimeLeft() == 0 || HasReachedDestination())
+        {
+            this.RandomizeState();
+
+            this.wanderController.SetTimer(GD.RandRange(1, 3));
+        }
     }
 
     private void SeekPlayer()
@@ -112,5 +128,24 @@ public partial class Bat : CharacterBody2D
     private void ApplyFriction(float delta)
     {
         this.Velocity = Velocity.MoveToward(Vector2.Zero, FRICTION * delta);
+    }
+
+    private void RandomizeState()
+    {
+        ActionState[] states = { ActionState.IDLE, ActionState.WANDER };
+        this.actionState = new Array<ActionState>(states).PickRandom();
+    }
+
+    private void AccelerateToward(Vector2 point, float delta)
+    {
+        Vector2 direction = this.GlobalPosition.DirectionTo(point);
+        this.Velocity = this.Velocity.MoveToward(direction * MAX_SPEED, ACCELERATION * delta);
+
+        animatedSprite.FlipH = direction.X < 0;
+    }
+
+    private bool HasReachedDestination()
+    {
+        return this.GlobalPosition.DistanceSquaredTo(this.wanderController.GetTargetPosition()) < 1;
     }
 }

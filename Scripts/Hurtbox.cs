@@ -26,7 +26,7 @@ public partial class Hurtbox : Area2D
 
     public void _OnAreaEntered(Area2D area)
     {
-        if(wasHitThisFrame)
+        if(wasHitThisFrame == false)
         SharedMethods.createEffect(this, "res://Scenes/HitEffect.tscn");
         wasHitThisFrame = true;
     }
