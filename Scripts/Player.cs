@@ -4,8 +4,7 @@ using System;
 
 
 public partial class Player : CharacterBody2D
-{
-    enum ActionState
+{    enum ActionState
     {
         MOVE,
         ROLL,
@@ -25,6 +24,7 @@ public partial class Player : CharacterBody2D
     [Export]
     private int BOUNCE = 1;
 
+    bool wasHitThisFrame;
     ActionState actionState;
     Vector2 rollVector;
 
@@ -32,11 +32,12 @@ public partial class Player : CharacterBody2D
     AnimationTree animationTree;
     AnimationNodeStateMachinePlayback animationPlayback;
     SwordHitbox swordHitbox;
-    Stats stats;
+    Stats playerStats;
     Hurtbox hurtbox;
 
     public override void _Ready()
     {
+        this.wasHitThisFrame = false;
         this.Velocity = Vector2.Zero;
         this.actionState = ActionState.MOVE;
         this.MotionMode = MotionModeEnum.Floating;
@@ -47,16 +48,17 @@ public partial class Player : CharacterBody2D
         this.swordHitbox = this.GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         this.animationPlayback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
         this.hurtbox = this.GetNode<Hurtbox>("Hurtbox");
-        this.stats = GetNode<Stats>("/root/PlayerStats");
+        this.playerStats = GetNode<Stats>("/root/PlayerStats");
 
         this.animationTree.Active = true;
         this.swordHitbox.knockbackVector = rollVector;
 
-        this.stats.Connect("NoHealth", Callable.From(() => this.QueueFree()));
+        this.playerStats.Connect("NoHealth", Callable.From(() => this.QueueFree()));
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        wasHitThisFrame = false;
         float fdelta = (float)delta;
 
         switch(this.actionState)
@@ -80,8 +82,12 @@ public partial class Player : CharacterBody2D
 
     public void _OnHurtboxAreaEntered(Area2D area)
     {
-        hurtbox.startInvincibility(0.5);
-        stats.setHealth(stats.getHealth() - 1);
+        if(wasHitThisFrame == false)
+        {
+            hurtbox.startInvincibility(0.5);
+            playerStats.setHealth(playerStats.getHealth() - 1);
+            this.wasHitThisFrame = true;
+        }
     }
 
     private void moveState(float delta)
