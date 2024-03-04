@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c16aqotfmuolr"]
+[gd_scene load_steps=28 format=3 uid="uid://c16aqotfmuolr"]
 
 [ext_resource type="Script" path="res://Scripts/Bat.cs" id="1_4e54h"]
 [ext_resource type="Texture2D" uid="uid://brgqp8whgf1uy" path="res://Resources/Enemies/Bat.png" id="1_d8nuo"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c3xvjhc2cx6xx" path="res://Scenes/PlayerDetectionZone.tscn" id="6_fnvw5"]
 [ext_resource type="PackedScene" uid="uid://c7f76sxk2or8r" path="res://Scenes/Hitbox.tscn" id="7_dgxqj"]
 [ext_resource type="PackedScene" uid="uid://cxbp2xs0ji7yr" path="res://Scenes/SoftCollision.tscn" id="8_p1aad"]
+[ext_resource type="Script" path="res://Scripts/Hitbox.cs" id="9_hikvm"]
 [ext_resource type="PackedScene" uid="uid://bpiqeq3lp30dt" path="res://Scenes/WanderController.tscn" id="9_l63oy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qv3g0"]
@@ -173,6 +174,7 @@ metadata/_edit_lock_ = true
 visible = false
 collision_layer = 32
 collision_mask = 4
+script = ExtResource("9_hikvm")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(0, -16)
