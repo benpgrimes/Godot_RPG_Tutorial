@@ -3,6 +3,12 @@ using System;
 
 public partial class Hurtbox : Area2D
 {
+    [Signal]
+    public delegate void InvincibilityStartedEventHandler();
+
+    [Signal]
+    public delegate void InvincibilityEndedEventHandler();
+
     bool wasHitThisFrame;
     Timer invincibiltyTimer;
 
@@ -19,7 +25,8 @@ public partial class Hurtbox : Area2D
 
     public void startInvincibility(double duration)
     {
-        SetDeferred("monitoring", false);
+        EmitSignal("InvincibilityStarted");
+        this.SetDeferred("monitoring", false);
         this.invincibiltyTimer.WaitTime = duration;
         this.invincibiltyTimer.Start();
     }
@@ -33,6 +40,8 @@ public partial class Hurtbox : Area2D
 
     public void  _OnInvincibiltyTimeout()
     {
-        SetDeferred("monitoring", true);
+        EmitSignal("InvincibilityEnded");
+        this.SetDeferred("monitoring", true);
+
 }
 }

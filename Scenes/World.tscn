@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxr4hm8v37ml5" path="res://Scenes/Player.tscn" id="4_b5jml"]
 [ext_resource type="PackedScene" uid="uid://drh54nagg1snb" path="res://Scenes/Bush.tscn" id="5_x552b"]
 [ext_resource type="PackedScene" uid="uid://bk2onb05pb48k" path="res://Scenes/Grass.tscn" id="6_okcdt"]
-[ext_resource type="PackedScene" uid="uid://63tia3mc5dx0" path="res://Scenes/tree.tscn" id="7_2rflc"]
+[ext_resource type="PackedScene" uid="uid://63tia3mc5dx0" path="res://Scenes/Tree.tscn" id="7_2rflc"]
 [ext_resource type="PackedScene" uid="uid://c16aqotfmuolr" path="res://Scenes/Bat.tscn" id="7_d78u0"]
 [ext_resource type="PackedScene" uid="uid://1lew20u0lats" path="res://Scenes/HealthUI.tscn" id="8_igujv"]
 

@@ -7,10 +7,10 @@ class SharedMethods
     {
         Vector2 offset = new Vector2(offsetX, offsetY);
 
-        PackedScene grassEffectScene = GD.Load<PackedScene>(path);
-        Effect grassEffect = grassEffectScene.Instantiate<Effect>();
+        PackedScene effectScene = GD.Load<PackedScene>(path);
+        Effect effect = effectScene.Instantiate<Effect>();
 
-        spawner.GetParent().AddChild(grassEffect);
-        grassEffect.Position = spawner.Position + offset;
+        spawner.GetParent().AddChild(effect);
+        effect.Position = spawner.Position + offset;
     }
 }

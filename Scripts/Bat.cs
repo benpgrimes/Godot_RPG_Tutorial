@@ -27,6 +27,8 @@ public partial class Bat : CharacterBody2D
     AnimatedSprite2D animatedSprite;
     SoftCollision softCollision;
     WanderController wanderController;
+    AnimationPlayer animationPlayer;
+    Hurtbox hurtbox;
 
     ActionState actionState = ActionState.IDLE;
 
@@ -37,6 +39,8 @@ public partial class Bat : CharacterBody2D
         animatedSprite = this.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         softCollision = this.GetNode<SoftCollision>("SoftCollision");
         wanderController = this.GetNode<WanderController>("WanderController");
+        animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");
+        hurtbox = this.GetNode<Hurtbox>("Hurtbox");
 
         this.RandomizeState();
     }
@@ -69,6 +73,7 @@ public partial class Bat : CharacterBody2D
     {
         int currentHealth = this.stats.getHealth();
         this.stats.setHealth(currentHealth - area.damage);
+        this.hurtbox.startInvincibility(.3);
 
         this.Velocity = KNOCKBACK * area.knockbackVector;
     }
@@ -77,6 +82,16 @@ public partial class Bat : CharacterBody2D
     {
         SharedMethods.createEffect(this, "res://Scenes/EnemyDeathEffect.tscn", offsetY: -12);
         this.QueueFree();
+    }
+    
+    public void _OnInvincibilityStarted()
+    {
+        this.animationPlayer.Play("Start");
+    }
+
+    public void _OnInvincibilityEnded()
+    {
+        this.animationPlayer.Play("Stop");
     }
 
     private void ChaseState(float delta)

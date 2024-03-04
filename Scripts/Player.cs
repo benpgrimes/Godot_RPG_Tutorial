@@ -30,6 +30,7 @@ public partial class Player : CharacterBody2D
     SwordHitbox swordHitbox;
     Stats playerStats;
     Hurtbox hurtbox;
+    AnimationPlayer blinkAnimationPlayer;
 
     public override void _Ready()
     {
@@ -41,11 +42,12 @@ public partial class Player : CharacterBody2D
 
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
+        this.blinkAnimationPlayer = this.GetNode<AnimationPlayer>("BlinkAnimationPlayer");
         this.swordHitbox = this.GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         this.animationPlayback = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
         this.hurtbox = this.GetNode<Hurtbox>("Hurtbox");
         this.playerStats = GetNode<Stats>("/root/PlayerStats");
-
+        
         this.animationTree.Active = true;
         this.swordHitbox.knockbackVector = rollVector;
 
@@ -76,15 +78,29 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    public void _OnHurtboxAreaEntered(Area2D area)
+    public void _OnHurtboxAreaEntered(Hitbox area)
     {
         if(wasHitThisFrame == false)
         {
+            this.PlayHurtSound();
             hurtbox.startInvincibility(0.5);
-            playerStats.setHealth(playerStats.getHealth() - 1);
+            playerStats.setHealth(playerStats.getHealth() - area.damage);
             this.wasHitThisFrame = true;
+
         }
     }
+
+    public void _OnInvinicibilityStarted()
+    {
+        this.blinkAnimationPlayer.Play("Start");
+    }
+
+    public void _OnInvinicibilityEnded()
+    {
+        this.blinkAnimationPlayer.Play("Stop");
+    }
+
+
 
     private void moveState(float delta)
     {
@@ -229,5 +245,13 @@ public partial class Player : CharacterBody2D
         {
             this.swordHitbox.knockbackVector = Vector2.Down;
         }
+    }
+
+    private void PlayHurtSound()
+    {
+        PackedScene soundEffectScene = GD.Load<PackedScene>("res://Scenes/PlayerHurt.tscn");
+        PlayerHurt soundEffect = soundEffectScene.Instantiate<PlayerHurt>();
+
+        this.GetParent().AddChild(soundEffect);
     }
 }
