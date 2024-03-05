@@ -11,6 +11,7 @@ This project uses Godot 4, while the original uses Godot 3.2.
 
 This project uses C#, while the original uses Godots native language GDScript.
 
+Commit History starts at Part 10
 
 There are a few things that I would change if I were to continue this project, 
 but since this was just following a tutorial series I decided to leave the project as is
